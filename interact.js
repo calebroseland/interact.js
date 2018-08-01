@@ -712,19 +712,18 @@
         return rootNode.defaultView || rootNode.parentWindow || window;
     }
 
-    function getElementClientRect (element, useOffsetDimensions) {
-        var useOffsetDim = (arguments[1] !== void 0 ? !!arguments[1] : true);
-        var clientRect = element instanceof SVGElement ? 
-            element.getBoundingClientRect()
-            : element.getClientRects()[0];
+    function getElementClientRect (element) {
+        var clientRect = (element instanceof SVGElement
+                            ? element.getBoundingClientRect()
+                            : element.getClientRects()[0]);
 
         return clientRect && {
             left  : clientRect.left,
             right : clientRect.right,
             top   : clientRect.top,
             bottom: clientRect.bottom,
-            width : useOffsetDim ? element.offsetWidth : clientRect.width || clientRect.right - clientRect.left,
-            height: useOffsetDim ? element.offsetHeight : clientRect.height || clientRect.bottom - clientRect.top
+            width : clientRect.width || clientRect.right - clientRect.left,
+            height: clientRect.height || clientRect.bottom - clientRect.top
         };
     }
 
